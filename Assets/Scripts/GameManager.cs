@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject enemyManager;
 
-    public int targetScore;
+    public int targetScore; // 目标分数
 
     public Text targetText;
     private void Awake()
