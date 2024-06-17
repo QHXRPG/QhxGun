@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/.idea/.idea.TestRoguelike/.idea
+/.vsconfig
+/Assembly-CSharp.csproj
+/Library
+/ProjectSettings
+/QhxGun.sln
+/Temp
+/TestRoguelike.sln
+/UserSettings
