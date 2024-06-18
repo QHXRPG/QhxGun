@@ -7,7 +7,6 @@ public class PlayerMove : MonoBehaviour
 {
     private Rigidbody2D rb; // 玩家的刚体组件
     [HideInInspector] public float moveH, moveV; // 玩家的水平和垂直移动速度
-    [SerializeField] private float moveSpeed; // 玩家的移动速度
 
     private void Start()
     {
@@ -17,8 +16,8 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         // 获取玩家的输入，计算出玩家的移动速度
-        moveH = Input.GetAxis("Horizontal") * moveSpeed;
-        moveV = Input.GetAxis("Vertical") * moveSpeed;
+        moveH = Input.GetAxis("Horizontal") * Globalx.moveSpeed;
+        moveV = Input.GetAxis("Vertical") * Globalx.moveSpeed;
 
         // 根据玩家的位置和鼠标的位置，翻转玩家的朝向
         PlayerOverturn();

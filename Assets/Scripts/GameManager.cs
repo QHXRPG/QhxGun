@@ -6,63 +6,41 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject winObj;
-    public GameObject loseObj;
-    public GameObject player;
-    public GameObject enemyManager;
+    public GameObject loseObj; // 失败对象
+    public GameObject player; // 玩家对象
+    public GameObject enemyManager; // 敌人管理对象
 
     public int targetScore; // 目标分数
 
-    public Text targetText;
+    public Text targetText; // 显示目标分数的文本
+
     private void Awake()
     {
-        if (PlayerPrefs.HasKey("TargetScore"))
-            targetScore = PlayerPrefs.GetInt("TargetScore");
-        else
-            targetScore = 0;
+        targetScore = 9999;
     }
+
     private void Start()
     {
-        targetText.text = "目标分数："+targetScore.ToString();
-        winObj.SetActive(false);
+        // 在游戏开始时设置目标分数的文本
+        targetText.text = "目标分数：" + targetScore.ToString();
+        // 初始化时隐藏胜利和失败对象
         loseObj.SetActive(false);
     }
+
     private void Update()
     {
-        int score = UIManager.instance.score;
-        if (score >= targetScore && PlayerHealth.isWin)
-        {
-            Debug.Log("游戏胜利");
-            saveCareerProgress();
-            winObj.SetActive(true);
-            player.SetActive(false);
-            enemyManager.SetActive(false);
-        }
-        else if(!PlayerHealth.isWin)
+        int score = UIManager.instance.score; // 获取当前得分
+        // 如果玩家已死亡，处理游戏失败逻辑
+        if (!PlayerHealth.isAlive)
         {
             Debug.Log("游戏失败！");
-            loseObj.SetActive(true);
-            player.SetActive(false);
-            enemyManager.SetActive(false);
+            loseObj.SetActive(true); // 显示失败对象
+            player.SetActive(false); // 隐藏玩家对象
+            enemyManager.SetActive(false); // 停止敌人管理
         }
     }
-    public void saveCareerProgress()
-    {
 
-        int currentLevelID = PlayerPrefs.GetInt("currentLevelID");
-
-        int userLevelAdvance = PlayerPrefs.GetInt("userLevelAdvance");
-
-        if (userLevelAdvance < currentLevelID)
-        {
-            userLevelAdvance++;
-            PlayerPrefs.SetInt("userLevelAdvance", userLevelAdvance);
-        }
-    }
-    public void BackLevel()
-    {
-        SceneManager.LoadScene("Level");
-    }
+    // 重启当前游戏场景
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

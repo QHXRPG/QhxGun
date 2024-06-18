@@ -40,12 +40,13 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         score = 0;
+        UpdateHp(Globalx.PlayHpMax);
     }
 
     // ¸üÐÂHPÏÔÊ¾
     public void UpdateHp(int _hp)
     {
-        for (int i = 0; i < hpImages.Length; i++)
+        for (int i = 0; i < Globalx.PlayHpMax; i++)
         {
             if (i < _hp)
             {

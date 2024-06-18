@@ -26,7 +26,7 @@ public class WeaponManager : MonoBehaviour
         {
             Debug.Log("切换武器"); // 输出调试信息
 
-            // 如果当前武器是剑
+            // 如果当前武器是枪
             if (!isSword)
             {
                 sp.sprite = weaponSprite[0]; // 切换武器Sprite
@@ -34,7 +34,7 @@ public class WeaponManager : MonoBehaviour
                 weaponObj[0].transform.localScale = new Vector3(0.6f, 0.6f, 0.6f); // 调整剑的大小
                 weaponObj[1].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); // 调整枪的大小
             }
-            else // 如果当前武器是枪
+            else // 如果当前武器是剑
             {
                 sp.sprite = weaponSprite[1]; // 切换武器Sprite
                 isSword = false; // 设置为枪

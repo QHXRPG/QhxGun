@@ -64,8 +64,8 @@ public class Enemy : MonoBehaviour, ITakenDamage
     // 敌人受到伤害时调用
     public void TakenDamage(int _amount)
     {
-        isAttack = true; // 设置敌人正在被攻击状态
-        StartCoroutine(IsAttackCo()); // 启动被攻击协程
+        //isAttack = true; // 设置敌人正在被攻击状态
+        //StartCoroutine(IsAttackCo()); // 启动被攻击协程
         hp -= _amount; // 减少敌人的生命值
 
         // 如果敌人的生命值小于等于0

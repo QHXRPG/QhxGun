@@ -60,23 +60,19 @@ public class Effect : MonoBehaviour
 
             // 获取敌人的ITakenDamage接口
             ITakenDamage enemy = collision.GetComponent<ITakenDamage>();
+            
+            // 对敌人造成伤害
+            enemy.TakenDamage(attackDamage);
 
-            // 如果敌人不在被攻击状态
-            if (!enemy.isAttack)
-            {
-                // 对敌人造成伤害
-                enemy.TakenDamage(attackDamage);
+            // 将子弹移回对象池
+            BullectPool.instance.Remove(this.gameObject);
 
-                // 将子弹移回对象池
-                BullectPool.instance.Remove(this.gameObject);
+            // 显示伤害数值
+            DamageNum damageNum = Instantiate(damageTextPrefab, collision.gameObject.transform.position, Quaternion.identity).GetComponent<DamageNum>();
+            damageNum.ShowDamage(attackDamage);
 
-                // 显示伤害数值
-                DamageNum damageNum = Instantiate(damageTextPrefab, collision.gameObject.transform.position, Quaternion.identity).GetComponent<DamageNum>();
-                damageNum.ShowDamage(attackDamage);
-
-                // 在敌人位置生成子弹效果
-                Instantiate(bulletPrefab, collision.gameObject.transform.position, Quaternion.identity);
-            }
+            // 在敌人位置生成子弹效果
+            Instantiate(bulletPrefab, collision.gameObject.transform.position, Quaternion.identity);
         }
     }
 }
