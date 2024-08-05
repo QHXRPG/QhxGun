@@ -1,74 +1,74 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPool : MonoBehaviour
 {
-    // 单例模式，方便其它类访问
+    // 碌楼脌媒脛拢脢陆拢卢路陆卤茫脝盲脣眉脌脿路脙脦脢
     public static EnemyPool instance;
 
-    // 用于生成敌人的预制体
+    // 脫脙脫脷脡煤鲁脡碌脨脠脣碌脛脭陇脰脝脤氓
     public GameObject Object;
 
-    // 敌人的父物体，用于组织层次结构
+    // 碌脨脠脣碌脛赂赂脦茂脤氓拢卢脫脙脫脷脳茅脰炉虏茫麓脦陆谩鹿鹿
     public Transform parent;
 
-    // 用于存储敌人的对象池
+    // 脫脙脫脷麓忙麓垄碌脨脠脣碌脛露脭脧贸鲁脴
     public Queue<GameObject> objectPool = new Queue<GameObject>();
 
-    // 初始生成的敌人数量
+    // 鲁玫脢录脡煤鲁脡碌脛碌脨脠脣脢媒脕驴
     public int startCount = 20;
 
-    // 对象池中允许的最大敌人数量
+    // 露脭脧贸鲁脴脰脨脭脢脨铆碌脛脳卯麓贸碌脨脠脣脢媒脕驴
     public int maxCount = 100;
 
-    // 在脚本实例化时调用，初始化单例和对象池
+    // 脭脷陆脜卤戮脢碌脌媒禄炉脢卤碌梅脫脙拢卢鲁玫脢录禄炉碌楼脌媒潞脥露脭脧贸鲁脴
     public void Awake()
     {
         instance = this;
         Init();
     }
 
-    // 初始化对象池
+    // 鲁玫脢录禄炉露脭脧贸鲁脴
     public void Init()
     {
         GameObject obj;
         for (int i = 0; i < startCount; i++)
         {
-            // 实例化敌人预制体，并设置其父物体
+            // 脢碌脌媒禄炉碌脨脠脣脭陇脰脝脤氓拢卢虏垄脡猫脰脙脝盲赂赂脦茂脤氓
             obj = Instantiate(Object, this.transform);
             obj.transform.parent = parent;
-            // 将敌人添加到对象池中，并设置为不激活状态
+            // 陆芦碌脨脠脣脤铆录脫碌陆露脭脧贸鲁脴脰脨拢卢虏垄脡猫脰脙脦陋虏禄录陇禄卯脳麓脤卢
             objectPool.Enqueue(obj);
             obj.SetActive(false);
         }
     }
 
-    // 从对象池中获取一个敌人
+    // 麓脫露脭脧贸鲁脴脰脨禄帽脠隆脪禄赂枚碌脨脠脣
     public GameObject Get()
     {
         GameObject tmp;
         if (objectPool.Count > 0)
         {
-            // 如果对象池中有敌人，则取出一个并激活它
+            // 脠莽鹿没露脭脧贸鲁脴脰脨脫脨碌脨脠脣拢卢脭貌脠隆鲁枚脪禄赂枚虏垄录陇禄卯脣眉
             tmp = objectPool.Dequeue();
             tmp.SetActive(true);
         }
         else
         {
-            // 如果对象池为空，则实例化一个新的敌人
+            // 脠莽鹿没露脭脧贸鲁脴脦陋驴脮拢卢脭貌脢碌脌媒禄炉脪禄赂枚脨脗碌脛碌脨脠脣
             tmp = Instantiate(Object, this.transform);
             tmp.transform.parent = parent;
         }
         return tmp;
     }
 
-    // 将敌人移回对象池
+    // 陆芦碌脨脠脣脪脝禄脴露脭脧贸鲁脴
     public void Remove(GameObject obj)
     {
         if (objectPool.Count < maxCount)
         {
-            // 如果对象池未达到最大容量，且对象池中不包含该敌人，则将其放回对象池并设置为不激活状态
+            // 脠莽鹿没露脭脧贸鲁脴脦麓麓茂碌陆脳卯麓贸脠脻脕驴拢卢脟脪露脭脧贸鲁脴脰脨虏禄掳眉潞卢赂脙碌脨脠脣拢卢脭貌陆芦脝盲路脜禄脴露脭脧贸鲁脴虏垄脡猫脰脙脦陋虏禄录陇禄卯脳麓脤卢
             if (!objectPool.Contains(obj))
             {
                 objectPool.Enqueue(obj);
@@ -77,7 +77,7 @@ public class EnemyPool : MonoBehaviour
         }
         else
         {
-            // 如果对象池已满，则销毁该敌人
+            // 脠莽鹿没露脭脧贸鲁脴脪脩脗煤拢卢脭貌脧煤禄脵赂脙碌脨脠脣
             Destroy(obj);
         }
     }
